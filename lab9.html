@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Opis">
+        <meta name="keywords" content="Słowo kluczowe 1, Słowo kluczowe 2">
+        <meta name="author" content="Damian Majchrowicz">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>NBP</title>
+    </head>
+    <body>
+        <p>
+            Aktualnie obowiązująca cena złota 
+        </p>
+        <table border="1">
+            <tr>
+                <th>Data</th><th>Cena złota</th>
+            </tr>
+            <tr>
+            <td>2023-01-05</td><td>262.71</td>
+            </tr>
+            <tr>
+                <td>2023-01-09</td><td>261.84</td>
+            </tr>
+            <tr>
+                <td>2023-01-10</td><td>265.86</td>
+            </tr>
+            <tr>
+                <td>2023-01-11</td><td>264.07</td>
+            </tr>
+            <tr>
+                <td>2023-01-02</td><td>262.71</td>
+            </tr>
+        </table>
+    
+        
+           
+    
+
+        <script type="text/javascript">
+            // wprowadz adres do przegladarki i zobacz, co takiego sie wyswietli
+            fetch('http://api.nbp.pl/api/cenyzlota?format=json')
+                .then(response => response.json())
+                .then(response => {
+                    // tutaj obslugujemy dane (parametr 'response') z serwera (json)
+                    console.log(response); 
+
+                    // 'response' to tablica - odwoluje sie do 1 elementu (idx = 0)
+                    let priceGold = response[0];
+
+                    console.log('cena = ' + priceGold.cena);
+                    console.log('data = ' + priceGold.data);
+
+                    document.getElementById("price").innerHTML = priceGold.cena;
+                    document.getElementById("date").innerHTML = priceGold.data;
+                })
+                .catch(err => console.error(err)); // obsluga w przypadku bledu!
+        </script>
+    </body>
+</html>
