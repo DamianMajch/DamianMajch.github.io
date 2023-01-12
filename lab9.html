@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Opis">
+        <meta name="keywords" content="Słowo kluczowe 1, Słowo kluczowe 2">
+        <meta name="author" content="Tomasz Gądek">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>NBP</title>
+    </head>
+    <body>
+        <p>
+            <table border="1" id="tablica">
+                <tr>
+                    <th>Data</th><th>Cena za 1g</th>
+                </tr>
+                
+            </table>
+        </p>
+
+        <script type="text/javascript">
+            // wprowadz adres do przegladarki i zobacz, co takiego sie wyswietli
+            fetch('http://api.nbp.pl/api/cenyzlota/last/5?format=json')
+                .then(response => response.json())
+                .then(response => {
+                    // tutaj obslugujemy dane (parametr 'response') z serwera (json)
+                    console.log(response); 
+                    // 'response' to tablica - odwoluje sie do 1 elementu (idx = 0)
+                    //let priceGold = response[0];
+
+                    //console.log('cena = ' + priceGold.cena);
+                    //console.log('date = ' + priceGold.data);
+                    let tablica=document.getElementById("tablica");
+                    for (let data of response){
+                        tablica.innerHTML+= `<tr><td>${data.data}</td><td>${data.cena}</td></tr>`
+                      
+                    }
+                    
+                })
+                .catch(err => console.error(err)); // obsluga w przypadku bledu!
+        </script>
+    </body>
+</html>
